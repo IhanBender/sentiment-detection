@@ -1,3 +1,5 @@
+import torch
+from torch.autograd import Variable
 from unidecode import unidecode
 
 def char_tensor(string):

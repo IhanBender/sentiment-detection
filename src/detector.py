@@ -19,7 +19,7 @@ class Detector():
         else:
             self.net.load_state_dict(torch.load(os.path.join(os.path.dirname(__file__), "../data/models/net_9.pth")), map_location="cpu")
             self.net.cpu()
-            
+
         self.net.eval()
 
     def _get_score(self, prediction):
@@ -35,18 +35,18 @@ class Detector():
 
     def evaluate_text(self, text):
         tensor = char_tensor(text)
-        if torch.cuda.is_avaiable():
+        if torch.cuda.is_available():
             tensor = tensor.cuda()
         pred = self.net(tensor)
         score = self._get_score(pred)
-        
+
         if score == -1:
             return "Not conclusive sentiment detected."
         elif score <= 3:
             return "Negative sentiment detected."
         else:
             return "Positive sentiment detected."
-        
+
 
 def main():
     detector = Detector()
@@ -55,7 +55,7 @@ def main():
         input_text = input()
         if input_text == "":
             break
-        print(self.detector.evaluate_text(input_text))
+        print(detector.evaluate_text(input_text) + " insert a new review.")
 
 
 if __name__ == '__main__':
